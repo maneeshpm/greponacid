@@ -10,6 +10,7 @@ fn main() {
     });
 
     println!("searching [{}] in [{}]", config.query, config.filename);
+    println!("-------------------------------------------------------");
 
     if let Err(e) = greponacid::run(config) {
         println!("Application Err: {}", e);
