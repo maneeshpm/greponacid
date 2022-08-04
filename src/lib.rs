@@ -66,7 +66,7 @@ fn search_in_content<'a>(query: &str, content: &'a str) -> Vec<&'a str> {
     matches
 }
 
-// Perform search on some content
+// Perform cases insenitive search on some content
 fn search_in_content_ci<'a>(query: &str, content: &'a str) -> Vec<&'a str> {
     let mut matches: Vec<&str> = vec![];
     let query = query.to_lowercase();
