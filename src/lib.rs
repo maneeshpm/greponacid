@@ -92,6 +92,20 @@ mod tests {
     }
 
     #[test]
+    fn search_multiple() {
+        let query = "igg";
+        let contents = "first line\nneed bigger tests\nthird line\nigg with me";
+        assert_eq!(vec!["need bigger tests", "igg with me"], search_in_content(&query, &contents))
+    }
+
+    #[test]
+    fn search_none() {
+        let query = "igg";
+        let contents = "first line\nneed smaller tests\nthird line";
+        assert!(search_in_content(&query, &contents).is_empty())
+    }
+
+    #[test]
     fn search_case_insensitive() {
         let query = "IgG";
         let contents = "first line\nneed bigger tests\nthird line";
