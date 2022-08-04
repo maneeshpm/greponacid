@@ -9,7 +9,7 @@ fn main() {
         process::exit(1);
     });
 
-    println!("searching for: {}\n searching in: {}", config.query, config.filename);
+    println!("searching [{}] in [{}]", config.query, config.filename);
 
     if let Err(e) = greponacid::run(config) {
         println!("Application Err: {}", e);
