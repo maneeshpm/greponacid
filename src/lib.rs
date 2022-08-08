@@ -11,26 +11,32 @@ pub struct Config {
 
 impl Config {
     // Create a new config storing user input
-    pub fn new(args: &[String]) -> Result<Config, &'static str> { 
-        if args.len() < 3 {
-            return Err("Not enough arguments");
-        }
+    pub fn new(mut args: impl Iterator<Item = String>) -> Result<Config, &'static str> { 
+        args.next();
+
+        let query = match args.next() {
+            Some(q) => q,
+            None => return Err("No query found")
+        };
+
+        let filename = match args.next() {
+            Some(f) => f,
+            None => return Err("No filename found")
+        };
+
+        let case_insensitive = match args.next() {
+            Some(c) => match c.as_str() {
+                "true" | "True" | "t" | "T" => true,
+                _ => false
+            } ,
+            None => false
+        };
+
         Ok(Config {
-            query: args[1].clone(),
-            filename: args[2].clone(),
-            case_insensitive: Config::case_insensitive(args)
+            query,
+            filename,
+            case_insensitive
         })
-    }
-
-    fn case_insensitive(args: &[String]) -> bool {
-        if args.len() < 4 {
-            return false;
-        }
-
-        match args[3].as_str() {
-            "T" | "t" | "true" | "True" => true,
-            _ => false
-        }
     }
 }
 
