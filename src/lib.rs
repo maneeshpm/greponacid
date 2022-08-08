@@ -62,27 +62,13 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
 
 // Perform search on some content
 fn search_in_content<'a>(query: &str, content: &'a str) -> Vec<&'a str> {
-    let mut matches: Vec<&str> = vec![];
-    for line in content.lines() {
-        if line.contains(query) {
-            matches.push(line);
-        }
-    }
-
-    matches
+    content.lines().filter(|line| line.contains(query)).collect()
 }
 
 // Perform cases insenitive search on some content
 fn search_in_content_ci<'a>(query: &str, content: &'a str) -> Vec<&'a str> {
-    let mut matches: Vec<&str> = vec![];
     let query = query.to_lowercase();
-    for line in content.lines() {
-        if line.to_lowercase().contains(&query) {
-            matches.push(line);
-        }
-    }
-
-    matches
+    content.lines().filter(|line| line.to_lowercase().contains(&query)).collect()
 }
 
 // tests
